@@ -4,9 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AutoDiagnostico</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="header.css">
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      background-color: #070707;
+    }
+
+    .chat-container {
+      margin-top: 90px;
+      margin-bottom: 20px;
+      margin-left: 20px;
+      margin-right: 20px;
+      flex: 1;   
+       /*width: 1700px;
+      height: 2px; */
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: end;
+      padding: 20px;
+      overflow-y: auto;
+      background-color: #45a049;
+    }
+
+    .message {
+      background-color: #635454;
+      padding: 10px 15px;
+      border-radius: 10px;
+      max-width: 60%;
+      margin-top: 5PX;
+    }
+
+    .input-container {
+      display: flex;
+      padding: 15px;
+      border-top: 1px solid #000000;
+      background-color: rgb(36, 36, 36);
+      position: sticky;
+      bottom: 0;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #e7e4e4;
+      border-radius: 8px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-left: 10px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: rgb(255, 255, 255);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
-    <a>meu deus do ceu essa porra nao vai aaaaaaaaaaaaaaaaaaaaaaaa</a>
+    <div id="header"></div>
+
+     <script>
+    function loadHTML(id, url) {
+      fetch(url)
+        .then(res => res.text())
+        .then(data => {
+          document.getElementById(id).innerHTML = data;
+        })
+        .catch(err => console.error(`Erro ao carregar ${url}: `, err));
+    }
+
+    loadHTML('header', 'header.html');
+   
+  </script>
+   <div class="chat-container" id="chat">
+    <!-- As mensagens aparecerão aqui -->
+  </div>
+
+  <div class="input-container">
+    <input type="text" id="userInput" placeholder="Digite sua pergunta...">
+    <button onclick="sendMessage()">Enviar</button>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const input = document.getElementById('userInput');
+      const message = input.value.trim();
+      if (message !== "") {
+        const chat = document.getElementById('chat');
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'message';
+        msgDiv.textContent = message;
+        chat.appendChild(msgDiv);
+        input.value = "";
+        chat.scrollTop = chat.scrollHeight; // rola para a última mensagem
+      }
+    }
+  </script>
 </body>
 </html>
